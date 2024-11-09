@@ -68,9 +68,10 @@ router.post("/signin", async (req, res) => {
   const { username, password } = req.body;
   try {
     const data = await User.findOne({ username, password });
+    console.log(data)
     if (data) {
       const token = jwt.sign({userid : data._id}, secret);
-      res.status(200).json({ msg: "Success" , token : token});
+      res.status(200).json({ msg: "Success" , token : token , firstname : data.firstname , id : data._id});
     } else {
       res.status(400).json({ error: "Invalid username or password" });
     }
